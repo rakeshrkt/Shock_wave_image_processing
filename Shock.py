@@ -4,9 +4,9 @@ from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 
 # Load the image
-image = cv2.imread(r'c:\Users\rakes\Downloads\1920px-F4_p4_red_planedrop.jpg', cv2.IMREAD_GRAYSCALE)
+image = cv2.imread(r'1920px-F4_p4_red_planedrop.jpg', cv2.IMREAD_GRAYSCALE)
 
-# Resize the image to fit the screen dimensions (adjust these values as needed)
+# Resize the image to fit the screen dimensions 
 desired_width = 1920
 desired_height = 1080
 
@@ -23,8 +23,7 @@ else:
 
 resized_image = cv2.resize(image, (new_width, new_height))
 
-# Convert the resized image to grayscale
-#gray_image = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
+
 
 # Apply Gaussian blur to reduce noise
 blurred = cv2.GaussianBlur(resized_image, (5, 5), 0)
@@ -34,7 +33,6 @@ edges = cv2.Canny(blurred, 30, 150)
 
 # Find contours in the edge-detected image
 contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
 all_points = []
 
 # Loop through the detected contours and collect all points
@@ -44,7 +42,7 @@ for contour in contours:
         all_points.extend(points)
 
 # Approximate the shock line as a polygon using cv2.approxPolyDP
-epsilon = 5  # Adjust the epsilon value as needed
+epsilon = 5  
 shock_polygon = cv2.approxPolyDP(np.array(all_points), epsilon, True)
 
 # Draw the shock polygon on the resized image
